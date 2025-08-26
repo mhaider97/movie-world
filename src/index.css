@@ -140,6 +140,21 @@
             @apply text-gray-100 font-medium text-base;
         }
     }
+
+    .btn {
+        @apply bg-dark-100 text-white font-semibold py-3 px-6
+        rounded-xl shadow-inner shadow-light-100/10
+        transition duration-200 ease-in-out
+        hover:bg-light-100/10 active:scale-95;
+    }
+
+    .btn-primary {
+        @apply bg-light-100 text-dark-100 font-bold;
+
+        &:hover {
+            @apply bg-light-200;
+        }
+    }
 }
 
 @utility text-gradient {
