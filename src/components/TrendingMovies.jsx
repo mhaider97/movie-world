@@ -1,19 +1,27 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Spinner from "./Spinner.jsx";
-import {fetchExternalLink} from "../api/movies.js";
+import {fetchExternalLink, loadTrendingMovies} from "../api/movies.js";
 
-const TrendingMovies = ({movies, loading, errorMessage}) => {
+const TrendingMovies = () => {
+    const [trendingMovies, setTrendingMovies] = useState([]);
+    const [trendingMoviesLoading, setTrendingMoviesLoading] = useState(false);
+    const [trendingMoviesErrorMessage, setTrendingMoviesErrorMessage] = useState('');
+
+    useEffect(() => {
+        loadTrendingMovies(setTrendingMoviesLoading, setTrendingMovies, setTrendingMoviesErrorMessage);
+    }, [])
+
     return (
         <section>
-            {loading ? (
+            {trendingMoviesLoading ? (
                 <Spinner />
-            ) : errorMessage ? (
-                <p className='text-red-500'>{errorMessage}</p>
+            ) : trendingMoviesErrorMessage ? (
+                <p className='text-red-500'>{trendingMoviesErrorMessage}</p>
             ) : (
-                movies.length > 0 && <section className='trending'>
+                trendingMovies.length > 0 && <section className='trending'>
                     <h2>Trending Movies</h2>
                     <ul>
-                        {movies.map((movie, index) => (
+                        {trendingMovies.map((movie, index) => (
                             <li key={movie.$id}>
                                 <p>{index + 1}</p>
                                 <img
